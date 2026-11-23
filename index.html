@@ -318,8 +318,104 @@
         border-color: var(--cyan);
         color: #04121a;
       }
+      .nav-toggle {
+        display: none;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(4, 7, 14, 0.55);
+        color: #fff;
+        flex-shrink: 0;
+        z-index: 110;
+      }
+      .nav-toggle span {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: currentColor;
+        position: relative;
+        transition: 0.3s var(--ease);
+      }
+      .nav-toggle span::before,
+      .nav-toggle span::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 18px;
+        height: 2px;
+        background: currentColor;
+        transition: 0.3s var(--ease);
+      }
+      .nav-toggle span::before {
+        top: -6px;
+      }
+      .nav-toggle span::after {
+        top: 6px;
+      }
+      .nav-toggle.is-open span {
+        background: transparent;
+      }
+      .nav-toggle.is-open span::before {
+        top: 0;
+        transform: rotate(45deg);
+      }
+      .nav-toggle.is-open span::after {
+        top: 0;
+        transform: rotate(-45deg);
+      }
       @media (max-width: 1050px) {
+        .nav-toggle {
+          display: grid;
+        }
         .nav-links {
+          display: none;
+          position: fixed;
+          inset: 0;
+          z-index: 105;
+          background: rgba(4, 7, 14, 0.96);
+          backdrop-filter: blur(18px);
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 8px;
+          padding: 80px 24px 40px;
+        }
+        .nav-links.is-open {
+          display: flex;
+        }
+        .nav-links a {
+          font-size: 1.05rem;
+          letter-spacing: 0.18em;
+          padding: 14px 20px;
+          width: min(320px, 90vw);
+          text-align: center;
+          border-radius: 12px;
+        }
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+          background: rgba(111, 211, 232, 0.1);
+          color: var(--cyan);
+        }
+        .nav-cta {
+          display: none;
+        }
+        .nav-links .nav-cta-mobile {
+          display: inline-flex;
+          margin-top: 18px;
+          border: 1px solid rgba(111, 211, 232, 0.5);
+          border-radius: 100px;
+          padding: 14px 28px;
+          color: var(--cyan);
+          font-size: 0.8rem;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          width: auto;
+        }
+      }
+      @media (min-width: 1051px) {
+        .nav-links .nav-cta-mobile {
           display: none;
         }
       }
@@ -1409,6 +1505,234 @@
           transform: none;
         }
       }
+
+      /* ============ MOBILE / PHONE ============ */
+      @media (max-width: 700px) {
+        .wrap {
+          width: min(1240px, 94vw);
+        }
+        .nav {
+          padding: 14px 16px;
+        }
+        .nav.solid {
+          padding-block: 10px;
+        }
+        .brand {
+          font-size: 1.05rem;
+        }
+        .brand i {
+          font-size: 0.5rem;
+          letter-spacing: 0.22em;
+        }
+        .hero {
+          min-height: 100svh;
+          padding: 110px 5vw 90px;
+        }
+        .hero h1 {
+          font-size: clamp(1.85rem, 8.5vw, 2.6rem);
+          max-width: 14ch;
+        }
+        .hero p {
+          font-size: 0.95rem;
+          margin-top: 18px;
+        }
+        .hero-stats {
+          gap: 14px 22px;
+          margin-top: 28px;
+          font-size: 0.62rem;
+        }
+        .hero-stats b {
+          font-size: 0.92rem;
+        }
+        .hero-scroll {
+          bottom: 28px;
+          font-size: 0.58rem;
+        }
+        .hero-scroll span {
+          height: 28px;
+        }
+        .bookbar {
+          grid-template-columns: 1fr;
+          margin-top: -28px;
+          border-radius: 16px;
+        }
+        .bookbar .field {
+          border-right: 0;
+          border-bottom: 1px solid var(--line-2);
+          padding: 16px 18px;
+        }
+        .bookbar .go {
+          grid-column: 1;
+          padding: 18px;
+          min-height: 52px;
+        }
+        .booknote {
+          font-size: 0.65rem;
+          padding-inline: 8px;
+        }
+        .sec {
+          padding: 56px 0;
+        }
+        .sec-head {
+          margin-bottom: 32px;
+        }
+        .sec-head h2 {
+          font-size: clamp(1.55rem, 6.5vw, 2.1rem);
+        }
+        .floor-tabs {
+          gap: 8px;
+          overflow-x: auto;
+          flex-wrap: nowrap;
+          padding-bottom: 6px;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .floor-tabs::-webkit-scrollbar {
+          display: none;
+        }
+        .ftab {
+          flex: 0 0 auto;
+          padding: 10px 16px;
+          font-size: 0.65rem;
+        }
+        .plan-stage {
+          padding: 10px;
+          border-radius: 16px;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        .plan-stage svg {
+          min-width: 520px;
+        }
+        .plan-detail {
+          position: static;
+          border-radius: 16px;
+        }
+        .pd-body {
+          padding: 20px 18px 24px;
+        }
+        .pd-body h3 {
+          font-size: 1.3rem;
+        }
+        .room-grid,
+        .ent-grid,
+        .safe-grid {
+          grid-template-columns: 1fr;
+        }
+        .safe-grid {
+          grid-template-columns: 1fr;
+        }
+        .rcard,
+        .ecard {
+          border-radius: 16px;
+        }
+        .rcard-body {
+          padding: 18px 18px 20px;
+        }
+        .split {
+          gap: 28px;
+        }
+        .split-media {
+          border-radius: 16px;
+          aspect-ratio: 4/3;
+        }
+        .tabbar {
+          margin: 24px 0 18px;
+          gap: 6px;
+        }
+        .tbtn {
+          padding: 10px 14px;
+          font-size: 0.65rem;
+        }
+        .act {
+          gap: 6px;
+          padding: 18px 4px;
+        }
+        .act h4 {
+          font-size: 1rem;
+        }
+        .act:hover {
+          padding-inline: 10px;
+        }
+        .safe-item {
+          padding: 26px 22px;
+        }
+        .cta {
+          padding: 64px 0;
+          text-align: center;
+        }
+        .cta h2 {
+          font-size: clamp(1.6rem, 7vw, 2.2rem);
+        }
+        .cta-row {
+          justify-content: center;
+        }
+        .btn {
+          width: 100%;
+          justify-content: center;
+          text-align: center;
+        }
+        .cta-row .btn {
+          width: auto;
+          min-width: min(100%, 240px);
+        }
+        footer {
+          padding: 44px 0 28px;
+        }
+        .foot-top {
+          flex-direction: column;
+          gap: 28px;
+        }
+        .foot-cols {
+          gap: 28px 40px;
+        }
+        .foot-bot {
+          flex-direction: column;
+          gap: 10px;
+          text-align: left;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .hero {
+          padding: 100px 4vw 80px;
+        }
+        .eyebrow {
+          font-size: 0.58rem;
+          letter-spacing: 0.18em;
+          gap: 8px;
+        }
+        .eyebrow::before,
+        .eyebrow::after {
+          width: 18px;
+        }
+        .hero-stats {
+          gap: 12px 16px;
+        }
+        .hero-stats > div {
+          flex: 1 1 40%;
+          min-width: 0;
+        }
+        .chips {
+          gap: 6px;
+        }
+        .chips li {
+          font-size: 0.62rem;
+          padding: 6px 10px;
+        }
+        .rfeat li {
+          font-size: 0.72rem;
+        }
+        .ecard {
+          aspect-ratio: 3/3.6;
+        }
+      }
+
+      @media (max-width: 380px) {
+        .brand i {
+          display: none;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1417,15 +1741,26 @@
       <a href="#" class="brand"
         >AMARANTE <b>ORBITAL</b><i>Low Earth Orbit</i></a
       >
-      <div class="nav-links">
+      <div class="nav-links" id="navLinks">
         <a href="#plan">Deck Plan</a>
         <a href="#rooms">Cabins</a>
         <a href="#dining">Dining</a>
         <a href="#entertainment">Entertainment</a>
         <a href="#activities">Activities</a>
         <a href="#safety">Safety</a>
+        <a href="#book" class="nav-cta-mobile">Reserve a cabin</a>
       </div>
       <a href="#book" class="nav-cta">Reserve a cabin</a>
+      <button
+        class="nav-toggle"
+        id="navToggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="navLinks"
+      >
+        <span></span>
+      </button>
     </nav>
 
     <!-- ================= HERO ================= -->
@@ -2892,6 +3227,9 @@
    10. NAV
    ========================================================= */
       const nav = document.getElementById("nav");
+      const navToggle = document.getElementById("navToggle");
+      const navLinks = document.getElementById("navLinks");
+
       window.addEventListener(
         "scroll",
         () => {
@@ -2899,6 +3237,43 @@
         },
         { passive: true },
       );
+
+      function closeMenu() {
+        if (!navToggle || !navLinks) return;
+        navToggle.classList.remove("is-open");
+        navLinks.classList.remove("is-open");
+        navToggle.setAttribute("aria-expanded", "false");
+        navToggle.setAttribute("aria-label", "Open menu");
+        document.body.style.overflow = "";
+      }
+
+      function openMenu() {
+        navToggle.classList.add("is-open");
+        navLinks.classList.add("is-open");
+        navToggle.setAttribute("aria-expanded", "true");
+        navToggle.setAttribute("aria-label", "Close menu");
+        document.body.style.overflow = "hidden";
+      }
+
+      if (navToggle && navLinks) {
+        navToggle.addEventListener("click", () => {
+          if (navLinks.classList.contains("is-open")) closeMenu();
+          else openMenu();
+        });
+        navLinks.querySelectorAll("a").forEach((a) => {
+          a.addEventListener("click", closeMenu);
+        });
+        window.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeMenu();
+        });
+        window.addEventListener(
+          "resize",
+          () => {
+            if (window.innerWidth > 1050) closeMenu();
+          },
+          { passive: true },
+        );
+      }
 
       setTimeout(checkReveals, 600);
     </script>

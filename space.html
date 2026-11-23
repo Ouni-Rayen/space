@@ -1,0 +1,2906 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hotel Amarante Orbital — A Station in Low Earth Orbit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ============ TOKENS ============ */
+      :root {
+        --ink: #e6edf7;
+        --ink-2: #b6c4d8;
+        --muted: #7f90a8;
+        --line: rgba(255, 255, 255, 0.09);
+        --line-2: rgba(255, 255, 255, 0.06);
+        --bg: #04070e;
+        --panel: #0a1220;
+        --panel-2: #0c1526;
+        --cyan: #6fd3e8;
+        --cyan-dim: #3c8ea3;
+        --amber: #e9b45f;
+        --amber-dim: #a8813c;
+        --r: 18px;
+        --shadow: 0 30px 70px -35px rgba(0, 0, 0, 0.9);
+        --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+        --stars:
+          radial-gradient(1.2px 1.2px at 24px 18px, #fff, transparent),
+          radial-gradient(
+            1px 1px at 96px 52px,
+            rgba(255, 255, 255, 0.8),
+            transparent
+          ),
+          radial-gradient(1.4px 1.4px at 168px 30px, #fff, transparent),
+          radial-gradient(
+            0.9px 0.9px at 212px 98px,
+            rgba(255, 255, 255, 0.7),
+            transparent
+          ),
+          radial-gradient(
+            1.1px 1.1px at 40px 120px,
+            rgba(255, 255, 255, 0.75),
+            transparent
+          ),
+          radial-gradient(
+            0.8px 0.8px at 132px 152px,
+            rgba(255, 255, 255, 0.6),
+            transparent
+          ),
+          radial-gradient(1.3px 1.3px at 202px 192px, #fff, transparent),
+          radial-gradient(
+            1px 1px at 76px 208px,
+            rgba(255, 255, 255, 0.7),
+            transparent
+          ),
+          radial-gradient(
+            0.9px 0.9px at 12px 176px,
+            rgba(255, 255, 255, 0.55),
+            transparent
+          ),
+          radial-gradient(
+            1.1px 1.1px at 152px 226px,
+            rgba(255, 255, 255, 0.8),
+            transparent
+          );
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: "Inter", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+      img {
+        max-width: 100%;
+        display: block;
+      }
+      h1,
+      h2,
+      h3,
+      h4 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 600;
+        line-height: 1.12;
+        margin: 0;
+        letter-spacing: -0.01em;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        font: inherit;
+        cursor: pointer;
+        border: 0;
+        background: none;
+        color: inherit;
+      }
+      .wrap {
+        width: min(1240px, 92vw);
+        margin-inline: auto;
+      }
+      section {
+        position: relative;
+      }
+
+      /* ============ PROCEDURAL SPACE VISUALS ============ */
+      .viz {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+        background: #070d18;
+      }
+      .viz::before {
+        content: "";
+        position: absolute;
+        inset: -25%;
+        z-index: -1;
+        background-image: var(--stars);
+        background-size: 240px 240px;
+        opacity: 0.85;
+        pointer-events: none;
+      }
+      .viz-1 {
+        background:
+          radial-gradient(
+            130% 100% at 78% 108%,
+            rgba(60, 130, 190, 0.55),
+            transparent 62%
+          ),
+          radial-gradient(
+            90% 80% at 12% 6%,
+            rgba(120, 70, 170, 0.45),
+            transparent 64%
+          ),
+          #060c16;
+      }
+      .viz-2 {
+        background:
+          radial-gradient(
+            120% 95% at 20% 105%,
+            rgba(150, 80, 60, 0.45),
+            transparent 60%
+          ),
+          radial-gradient(
+            95% 85% at 85% 8%,
+            rgba(60, 110, 180, 0.5),
+            transparent 62%
+          ),
+          #070c15;
+      }
+      .viz-3 {
+        background:
+          radial-gradient(
+            120% 100% at 50% 115%,
+            rgba(40, 150, 150, 0.45),
+            transparent 62%
+          ),
+          radial-gradient(
+            90% 80% at 20% 10%,
+            rgba(80, 70, 160, 0.4),
+            transparent 65%
+          ),
+          #050b14;
+      }
+      .viz-4 {
+        background:
+          radial-gradient(
+            130% 100% at 85% 20%,
+            rgba(160, 90, 150, 0.45),
+            transparent 62%
+          ),
+          radial-gradient(
+            100% 90% at 10% 90%,
+            rgba(50, 110, 170, 0.42),
+            transparent 64%
+          ),
+          #070b16;
+      }
+      .viz-5 {
+        background:
+          radial-gradient(
+            120% 95% at 30% 110%,
+            rgba(180, 140, 70, 0.4),
+            transparent 60%
+          ),
+          radial-gradient(
+            95% 85% at 80% 0%,
+            rgba(60, 120, 190, 0.45),
+            transparent 62%
+          ),
+          #060b14;
+      }
+      .viz-6 {
+        background:
+          radial-gradient(
+            130% 105% at 60% 115%,
+            rgba(70, 160, 120, 0.42),
+            transparent 62%
+          ),
+          radial-gradient(
+            90% 80% at 15% 5%,
+            rgba(110, 80, 190, 0.4),
+            transparent 64%
+          ),
+          #050a13;
+      }
+      .viz-7 {
+        background:
+          radial-gradient(
+            120% 95% at 15% 100%,
+            rgba(190, 100, 90, 0.4),
+            transparent 60%
+          ),
+          radial-gradient(
+            100% 90% at 85% 10%,
+            rgba(50, 130, 180, 0.45),
+            transparent 62%
+          ),
+          #060c15;
+      }
+      .viz-8 {
+        background:
+          radial-gradient(
+            130% 100% at 70% 105%,
+            rgba(90, 110, 200, 0.45),
+            transparent 62%
+          ),
+          radial-gradient(
+            90% 80% at 20% 8%,
+            rgba(160, 90, 120, 0.35),
+            transparent 64%
+          ),
+          #050a14;
+      }
+
+      /* ============ NAV ============ */
+      .nav {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 22px min(4vw, 44px);
+        transition: 0.45s var(--ease);
+      }
+      .nav.solid {
+        background: rgba(4, 7, 14, 0.82);
+        backdrop-filter: blur(16px);
+        padding-block: 14px;
+        box-shadow: 0 1px 0 var(--line);
+      }
+      .brand {
+        font-family: "Playfair Display", serif;
+        font-size: 1.3rem;
+        letter-spacing: 0.08em;
+        color: #fff;
+        transition: 0.35s;
+        white-space: nowrap;
+      }
+      .brand b {
+        font-weight: 700;
+      }
+      .brand i {
+        font-style: normal;
+        color: var(--cyan);
+        font-size: 0.62rem;
+        letter-spacing: 0.3em;
+        display: block;
+        font-family: "Inter", sans-serif;
+        margin-top: 2px;
+        opacity: 0.8;
+      }
+      .nav-links {
+        display: flex;
+        gap: 28px;
+        align-items: center;
+      }
+      .nav-links a {
+        font-size: 0.76rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.78);
+        transition: 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--cyan);
+      }
+      .nav-cta {
+        border: 1px solid rgba(111, 211, 232, 0.5);
+        border-radius: 100px;
+        padding: 10px 22px;
+        color: var(--cyan);
+        font-size: 0.72rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        transition: 0.35s;
+        white-space: nowrap;
+      }
+      .nav-cta:hover {
+        background: var(--cyan);
+        border-color: var(--cyan);
+        color: #04121a;
+      }
+      @media (max-width: 1050px) {
+        .nav-links {
+          display: none;
+        }
+      }
+
+      /* ============ HERO ============ */
+      .hero {
+        min-height: 100vh;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        color: #fff;
+        padding: 140px 5vw 100px;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        background-image:
+          radial-gradient(
+            1500px 800px at 50% 118%,
+            rgba(111, 211, 232, 0.18),
+            transparent 62%
+          ),
+          radial-gradient(
+            1100px 700px at 12% -12%,
+            rgba(130, 80, 190, 0.3),
+            transparent 68%
+          ),
+          radial-gradient(
+            1200px 800px at 92% 18%,
+            rgba(40, 110, 190, 0.32),
+            transparent 68%
+          ),
+          url("img/hero-station.webp.jpg");
+        background-size: cover, cover, cover, cover;
+        background-position: center, center, center, center;
+        background-color: #04070e;
+      }
+      .hero-bg::before {
+        content: "";
+        position: absolute;
+        inset: -30%;
+        background-image: var(--stars);
+        background-size: 240px 240px;
+        opacity: 0.9;
+        animation: drift 90s linear infinite;
+      }
+      .hero-bg::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 58%;
+        background:
+          radial-gradient(
+            ellipse 70% 100% at 50% 100%,
+            rgba(16, 44, 72, 0.85),
+            transparent 72%
+          ),
+          radial-gradient(
+            ellipse 42% 62% at 50% 100%,
+            rgba(111, 211, 232, 0.2),
+            transparent 72%
+          );
+      }
+      @keyframes drift {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-240px);
+        }
+      }
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(
+          180deg,
+          rgba(4, 7, 14, 0.65) 0%,
+          rgba(4, 7, 14, 0.25) 40%,
+          rgba(4, 7, 14, 0.92) 100%
+        );
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+      }
+      .eyebrow {
+        font-size: 0.7rem;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        margin-bottom: 22px;
+        display: inline-flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .eyebrow::before,
+      .eyebrow::after {
+        content: "";
+        width: 34px;
+        height: 1px;
+        background: currentColor;
+        opacity: 0.5;
+      }
+      .hero h1 {
+        font-size: clamp(2.4rem, 6vw, 4.9rem);
+        max-width: 17ch;
+        margin-inline: auto;
+      }
+      .hero h1 em {
+        font-style: italic;
+        color: var(--cyan);
+      }
+      .hero p {
+        max-width: 58ch;
+        margin: 26px auto 0;
+        color: rgba(230, 237, 247, 0.78);
+        font-weight: 300;
+        font-size: 1.05rem;
+      }
+      .hero-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 34px;
+        justify-content: center;
+        margin-top: 38px;
+        font-size: 0.72rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: rgba(230, 237, 247, 0.55);
+      }
+      .hero-stats b {
+        color: #fff;
+        font-weight: 600;
+        display: block;
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        margin-top: 4px;
+        font-family: "Playfair Display", serif;
+      }
+      .hero-scroll {
+        position: absolute;
+        bottom: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        font-size: 0.64rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.45);
+        display: grid;
+        gap: 10px;
+        justify-items: center;
+      }
+      .hero-scroll span {
+        width: 1px;
+        height: 44px;
+        background: linear-gradient(rgba(111, 211, 232, 0.8), transparent);
+        animation: pulse 2.4s infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scaleY(0.7);
+        }
+        50% {
+          opacity: 1;
+          transform: scaleY(1);
+        }
+      }
+
+      /* ============ BOOKING BAR ============ */
+      .bookbar {
+        position: relative;
+        z-index: 5;
+        width: min(1120px, 92vw);
+        margin: -64px auto 0;
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: var(--r);
+        box-shadow: var(--shadow);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr) auto;
+        gap: 0;
+        overflow: hidden;
+      }
+      .bookbar .field {
+        padding: 20px 26px;
+        border-right: 1px solid var(--line-2);
+      }
+      .bookbar .field:last-of-type {
+        border-right: 0;
+      }
+      .bookbar label {
+        display: block;
+        font-size: 0.62rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 5px;
+      }
+      .bookbar input,
+      .bookbar select {
+        border: 0;
+        background: none;
+        font-family: inherit;
+        font-size: 0.95rem;
+        color: var(--ink);
+        width: 100%;
+        padding: 0;
+        outline: none;
+        color-scheme: dark;
+      }
+      .bookbar .go {
+        background: linear-gradient(135deg, var(--cyan), #4aa8c4);
+        color: #04121a;
+        padding: 0 40px;
+        font-size: 0.76rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        transition: 0.35s;
+        display: grid;
+        place-items: center;
+        font-weight: 600;
+      }
+      .bookbar .go:hover {
+        filter: brightness(1.12);
+      }
+      .booknote {
+        text-align: center;
+        font-size: 0.72rem;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+        margin: 16px auto 0;
+        width: min(1120px, 92vw);
+      }
+      @media (max-width: 860px) {
+        .bookbar {
+          grid-template-columns: 1fr 1fr;
+          margin-top: -40px;
+        }
+        .bookbar .field {
+          border-bottom: 1px solid var(--line-2);
+        }
+        .bookbar .go {
+          grid-column: 1/-1;
+          padding: 20px;
+        }
+      }
+
+      /* ============ SECTION HEAD ============ */
+      .sec {
+        padding: clamp(70px, 9vw, 130px) 0;
+      }
+      .sec-head {
+        max-width: 680px;
+        margin-bottom: 56px;
+      }
+      .sec-head.center {
+        margin-inline: auto;
+        text-align: center;
+      }
+      .sec-head .kicker {
+        font-size: 0.66rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        margin-bottom: 16px;
+        display: block;
+        font-weight: 500;
+      }
+      .sec-head h2 {
+        font-size: clamp(1.9rem, 4vw, 3.1rem);
+        color: #fff;
+      }
+      .sec-head p {
+        color: var(--muted);
+        margin: 18px 0 0;
+        font-size: 1.02rem;
+        font-weight: 300;
+      }
+
+      /* ============ FLOOR / DECK PLAN ============ */
+      .plan-sec {
+        background: linear-gradient(180deg, #04070e, #060c16 60%, #04070e);
+      }
+      .plan-grid {
+        display: grid;
+        grid-template-columns: 1.45fr 0.9fr;
+        gap: 36px;
+        align-items: start;
+      }
+      @media (max-width: 1020px) {
+        .plan-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .floor-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+      .ftab {
+        padding: 11px 20px;
+        border-radius: 100px;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        font-size: 0.7rem;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: rgba(230, 237, 247, 0.65);
+        transition: 0.3s var(--ease);
+      }
+      .ftab:hover {
+        border-color: var(--cyan);
+        color: #fff;
+      }
+      .ftab.active {
+        background: var(--cyan);
+        border-color: var(--cyan);
+        color: #04121a;
+        font-weight: 600;
+      }
+
+      .plan-stage {
+        background: radial-gradient(circle at 50% 0%, #0d1929, #04070e 72%);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 18px;
+        box-shadow:
+          inset 0 1px 0 rgba(255, 255, 255, 0.05),
+          0 40px 90px -55px #000;
+      }
+      svg.plan {
+        width: 100%;
+        height: auto;
+        display: block;
+        overflow: visible;
+      }
+      .space {
+        cursor: pointer;
+        outline: none;
+      }
+      .space rect {
+        fill: var(--c);
+        fill-opacity: 0.13;
+        stroke: var(--c);
+        stroke-opacity: 0.55;
+        stroke-width: 1.4;
+        transition: 0.28s var(--ease);
+      }
+      .space:hover rect,
+      .space:focus-visible rect {
+        fill-opacity: 0.28;
+        stroke-opacity: 0.95;
+      }
+      .space.is-active rect {
+        fill-opacity: 0.36;
+        stroke-opacity: 1;
+        stroke-width: 2.4;
+      }
+      .space.is-active {
+        filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.12));
+      }
+      .space-base {
+        fill: rgba(111, 211, 232, 0.05);
+        stroke: rgba(111, 211, 232, 0.14);
+        stroke-width: 1;
+        stroke-dasharray: 4 5;
+      }
+      .space-label {
+        fill: #eaf2fb;
+        font-family: "Inter", sans-serif;
+        font-size: 12.5px;
+        font-weight: 500;
+        text-anchor: middle;
+        pointer-events: none;
+        letter-spacing: 0.01em;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin-top: 18px;
+        font-size: 0.7rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+      }
+      .legend i {
+        width: 10px;
+        height: 10px;
+        border-radius: 3px;
+        display: inline-block;
+        margin-right: 7px;
+        vertical-align: -1px;
+      }
+
+      /* detail card */
+      .plan-detail {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+        position: sticky;
+        top: 100px;
+      }
+      .pd-img {
+        aspect-ratio: 16/10;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        background-color: #070d18;
+      }
+      .pd-img.has-photo {
+        background-color: #070d18;
+      }
+      .pd-img::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          180deg,
+          transparent 45%,
+          rgba(6, 12, 22, 0.9)
+        );
+      }
+      .pd-tag {
+        position: absolute;
+        bottom: 16px;
+        left: 20px;
+        z-index: 2;
+        font-size: 0.62rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 7px 14px;
+        border-radius: 100px;
+        background: rgba(4, 10, 18, 0.75);
+        border: 1px solid var(--c);
+        color: var(--c);
+        backdrop-filter: blur(6px);
+      }
+      .pd-body {
+        padding: 26px 26px 30px;
+      }
+      .pd-body h3 {
+        font-size: 1.55rem;
+        color: #fff;
+        margin-bottom: 12px;
+      }
+      .pd-body p {
+        color: var(--ink-2);
+        font-size: 0.93rem;
+        font-weight: 300;
+        margin: 0 0 20px;
+      }
+      .chips {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 24px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chips li {
+        font-size: 0.7rem;
+        padding: 6px 13px;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--line);
+        color: var(--ink-2);
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 14px 28px;
+        border-radius: 100px;
+        font-size: 0.74rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        transition: 0.35s var(--ease);
+      }
+      .btn-gold {
+        background: var(--cyan);
+        color: #04121a;
+        font-weight: 600;
+      }
+      .btn-gold:hover {
+        background: #a9ecf8;
+        transform: translateY(-2px);
+      }
+      .btn-ink {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--line);
+        color: #fff;
+      }
+      .btn-ink:hover {
+        background: var(--cyan);
+        border-color: var(--cyan);
+        color: #04121a;
+        transform: translateY(-2px);
+      }
+      .btn-out {
+        border: 1px solid var(--line);
+        color: var(--ink-2);
+      }
+      .btn-out:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+      }
+      @media (max-width: 1020px) {
+        .plan-detail {
+          position: static;
+        }
+      }
+
+      /* ============ CABINS ============ */
+      .filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 38px;
+      }
+      .chip {
+        padding: 10px 22px;
+        border-radius: 100px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.03);
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--ink-2);
+        transition: 0.3s;
+      }
+      .chip:hover {
+        border-color: var(--cyan);
+        color: #fff;
+      }
+      .chip.active {
+        background: var(--cyan);
+        border-color: var(--cyan);
+        color: #04121a;
+        font-weight: 600;
+      }
+
+      .room-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 28px;
+      }
+      .rcard {
+        background: var(--panel);
+        border-radius: var(--r);
+        overflow: hidden;
+        border: 1px solid var(--line);
+        transition: 0.5s var(--ease);
+        display: flex;
+        flex-direction: column;
+      }
+      .rcard:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow);
+        border-color: rgba(111, 211, 232, 0.35);
+      }
+      .rcard-img {
+        aspect-ratio: 4/3;
+        overflow: hidden;
+        position: relative;
+      }
+      .rcard-img .viz {
+        position: absolute;
+        inset: 0;
+        transition: transform 0.9s var(--ease);
+        background-size: cover;
+        background-position: center;
+      }
+      .rcard:hover .rcard-img .viz {
+        transform: scale(1.06);
+      }
+      .rcard-badge {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: rgba(6, 14, 24, 0.8);
+        backdrop-filter: blur(6px);
+        border: 1px solid rgba(111, 211, 232, 0.35);
+        font-size: 0.6rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        padding: 6px 13px;
+        border-radius: 100px;
+        color: var(--cyan);
+        font-weight: 600;
+      }
+      .rcard-body {
+        padding: 24px 24px 26px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .rcard-body h3 {
+        font-size: 1.26rem;
+        margin-bottom: 8px;
+        color: #fff;
+      }
+      .rmeta {
+        font-size: 0.8rem;
+        color: var(--muted);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        margin-bottom: 16px;
+      }
+      .rmeta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .rmeta span::before {
+        content: "";
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--cyan);
+      }
+      .rfeat {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 22px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .rfeat li {
+        font-size: 0.68rem;
+        padding: 5px 11px;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--ink-2);
+      }
+      .rfoot {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line-2);
+      }
+      .price {
+        font-family: "Playfair Display", serif;
+        font-size: 1.36rem;
+        color: #fff;
+      }
+      .price small {
+        font-family: "Inter", sans-serif;
+        font-size: 0.62rem;
+        color: var(--muted);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        display: block;
+      }
+      .rlink {
+        font-size: 0.7rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        font-weight: 600;
+        border-bottom: 1px solid transparent;
+        transition: 0.3s;
+      }
+      .rcard:hover .rlink {
+        border-bottom-color: var(--cyan);
+      }
+
+      /* ============ EDITORIAL SPLIT ============ */
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(30px, 5vw, 70px);
+        align-items: center;
+      }
+      .split.flip .split-media {
+        order: 2;
+      }
+      @media (max-width: 900px) {
+        .split {
+          grid-template-columns: 1fr;
+        }
+        .split.flip .split-media {
+          order: 0;
+        }
+      }
+      .split-media {
+        border-radius: 24px;
+        overflow: hidden;
+        aspect-ratio: 5/4;
+        position: relative;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--line);
+      }
+      .split-media .viz {
+        position: absolute;
+        inset: 0;
+        transition: transform 1s var(--ease);
+        background-size: cover;
+        background-position: center;
+      }
+      .split-media:hover .viz {
+        transform: scale(1.05);
+      }
+
+      .tabbar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin: 34px 0 26px;
+      }
+      .tbtn {
+        padding: 9px 18px;
+        border-radius: 100px;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        border: 1px solid var(--line);
+        color: var(--muted);
+        transition: 0.3s;
+      }
+      .tbtn:hover {
+        color: #fff;
+        border-color: rgba(111, 211, 232, 0.4);
+      }
+      .tbtn.active {
+        background: rgba(111, 211, 232, 0.14);
+        border-color: var(--cyan);
+        color: var(--cyan);
+      }
+      .tpanel {
+        display: none;
+        animation: fade 0.5s var(--ease);
+      }
+      .tpanel.show {
+        display: block;
+      }
+      @keyframes fade {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .tpanel h4 {
+        font-size: 1.45rem;
+        margin-bottom: 10px;
+        color: #fff;
+      }
+      .tpanel .meta {
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        margin-bottom: 14px;
+      }
+      .tpanel p {
+        color: var(--muted);
+        font-weight: 300;
+        margin: 0 0 18px;
+      }
+
+      /* ============ ENTERTAINMENT ============ */
+      .ent-sec {
+        background: linear-gradient(180deg, #04070e, #070e1a 50%, #04070e);
+      }
+      .ent-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 24px;
+      }
+      .ecard {
+        border-radius: var(--r);
+        overflow: hidden;
+        position: relative;
+        aspect-ratio: 3/4;
+        transition: 0.6s var(--ease);
+        border: 1px solid var(--line);
+        background-size: cover;
+        background-position: center;
+      }
+      .ecard::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: linear-gradient(
+          180deg,
+          rgba(4, 7, 14, 0.1) 30%,
+          rgba(4, 7, 14, 0.94)
+        );
+        transition: 0.5s;
+        pointer-events: none;
+      }
+      .ecard:hover {
+        transform: translateY(-6px);
+        border-color: rgba(111, 211, 232, 0.35);
+      }
+      .ecard:hover::after {
+        background: linear-gradient(
+          180deg,
+          rgba(4, 7, 14, 0.2) 10%,
+          rgba(4, 7, 14, 0.96)
+        );
+      }
+      .ecard-body {
+        position: absolute;
+        inset: auto 0 0;
+        padding: 26px 24px;
+        z-index: 1;
+      }
+      .ecard-body .when {
+        font-size: 0.62rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        margin-bottom: 8px;
+      }
+      .ecard-body h3 {
+        font-size: 1.28rem;
+        color: #fff;
+        margin-bottom: 8px;
+      }
+      .ecard-body p {
+        font-size: 0.84rem;
+        color: var(--ink-2);
+        margin: 0;
+        font-weight: 300;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: 0.5s var(--ease);
+      }
+      .ecard:hover .ecard-body p {
+        max-height: 130px;
+        opacity: 1;
+        margin-top: 6px;
+      }
+
+      /* ============ ACTIVITIES ============ */
+      .daybar {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 36px;
+      }
+      .act-list {
+        display: grid;
+        gap: 2px;
+      }
+      .act {
+        display: grid;
+        grid-template-columns: 120px 1fr auto;
+        gap: 26px;
+        align-items: center;
+        padding: 24px 6px;
+        border-bottom: 1px solid var(--line-2);
+        transition: 0.4s var(--ease);
+      }
+      .act:hover {
+        background: rgba(255, 255, 255, 0.025);
+        padding-inline: 20px;
+        border-radius: 14px;
+        border-color: transparent;
+      }
+      .act .time {
+        font-family: "Playfair Display", serif;
+        font-size: 1.05rem;
+        color: var(--cyan);
+      }
+      .act h4 {
+        font-size: 1.1rem;
+        font-family: "Inter", sans-serif;
+        font-weight: 600;
+        margin-bottom: 3px;
+        color: #fff;
+      }
+      .act p {
+        margin: 0;
+        font-size: 0.86rem;
+        color: var(--muted);
+        font-weight: 300;
+      }
+      .act .tag {
+        font-size: 0.64rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 6px 14px;
+        border-radius: 100px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid var(--line);
+        color: var(--ink-2);
+        white-space: nowrap;
+      }
+      @media (max-width: 700px) {
+        .act {
+          grid-template-columns: 1fr;
+          gap: 8px;
+          padding: 20px 6px;
+        }
+        .act .tag {
+          justify-self: start;
+        }
+      }
+
+      /* ============ SAFETY ============ */
+      .safety-sec {
+        background: #060b14;
+        border-block: 1px solid var(--line);
+      }
+      .safe-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+        gap: 1px;
+        background: var(--line);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        overflow: hidden;
+      }
+      .safe-item {
+        background: #060b14;
+        padding: 34px 30px;
+        transition: 0.4s var(--ease);
+      }
+      .safe-item:hover {
+        background: #081020;
+      }
+      .safe-item .num {
+        font-family: "Playfair Display", serif;
+        font-size: 0.86rem;
+        color: var(--cyan);
+        letter-spacing: 0.1em;
+        display: block;
+        margin-bottom: 14px;
+      }
+      .safe-item h4 {
+        font-size: 1.04rem;
+        margin-bottom: 9px;
+        color: #fff;
+      }
+      .safe-item p {
+        font-size: 0.85rem;
+        color: var(--muted);
+        margin: 0;
+        font-weight: 300;
+      }
+      .safe-note {
+        margin-top: 34px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+        justify-content: space-between;
+        padding: 26px 30px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--line);
+      }
+      .safe-note p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--ink-2);
+      }
+
+      /* ============ CTA ============ */
+      .cta {
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        text-align: center;
+        padding: clamp(90px, 12vw, 160px) 5vw;
+      }
+      .cta .wrap {
+        position: relative;
+        z-index: 2;
+      }
+      .cta h2 {
+        font-size: clamp(2rem, 4.6vw, 3.4rem);
+        max-width: 22ch;
+        margin-inline: auto;
+        color: #fff;
+      }
+      .cta p {
+        color: var(--ink-2);
+        max-width: 54ch;
+        margin: 22px auto 36px;
+        font-weight: 300;
+      }
+      .cta-row {
+        display: flex;
+        gap: 14px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* ============ FOOTER ============ */
+      footer {
+        background: #03060c;
+        color: var(--muted);
+        padding: 60px 0 34px;
+        font-size: 0.83rem;
+        border-top: 1px solid var(--line);
+      }
+      .foot-top {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 40px;
+        justify-content: space-between;
+        padding-bottom: 40px;
+        border-bottom: 1px solid var(--line-2);
+      }
+      .foot-top .brand {
+        color: #fff;
+        font-size: 1.4rem;
+      }
+      .foot-cols {
+        display: flex;
+        gap: clamp(30px, 6vw, 90px);
+        flex-wrap: wrap;
+      }
+      .foot-cols h5 {
+        font-size: 0.64rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--cyan);
+        margin: 0 0 14px;
+        font-weight: 600;
+      }
+      .foot-cols a {
+        display: block;
+        padding: 4px 0;
+        transition: 0.3s;
+      }
+      .foot-cols a:hover {
+        color: #fff;
+      }
+      .foot-bot {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding-top: 26px;
+        font-size: 0.74rem;
+      }
+
+      /* ============ REVEAL ============ */
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.8s var(--ease),
+          transform 0.8s var(--ease);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition-duration: 0.01ms !important;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ================= NAV ================= -->
+    <nav class="nav" id="nav">
+      <a href="#" class="brand"
+        >AMARANTE <b>ORBITAL</b><i>Low Earth Orbit</i></a
+      >
+      <div class="nav-links">
+        <a href="#plan">Deck Plan</a>
+        <a href="#rooms">Cabins</a>
+        <a href="#dining">Dining</a>
+        <a href="#entertainment">Entertainment</a>
+        <a href="#activities">Activities</a>
+        <a href="#safety">Safety</a>
+      </div>
+      <a href="#book" class="nav-cta">Reserve a cabin</a>
+    </nav>
+
+    <!-- ================= HERO ================= -->
+    <header class="hero">
+      <div class="hero-bg"></div>
+      <div class="hero-inner">
+        <span class="eyebrow"
+          >408 km up · 51.6° inclination · Operating since 2031</span
+        >
+        <h1>A hotel where the sun rises<br /><em>every 92 minutes</em></h1>
+        <p>
+          Explore the station before you launch — walk the decks, meet the
+          cabins, taste the hydroponic kitchens, and find the cupola you'll
+          never want to leave.
+        </p>
+        <div class="hero-stats">
+          <div>Altitude<b>408 km</b></div>
+          <div>Orbit<b>92 min</b></div>
+          <div>Decks<b>4</b></div>
+          <div>Guests<b>46</b></div>
+          <div>Gravity<b>0.16 – 0.38 g</b></div>
+        </div>
+      </div>
+      <div class="hero-scroll">Scroll to explore <span></span></div>
+    </header>
+
+    <!-- ================= BOOKING BAR ================= -->
+    <form
+      class="bookbar"
+      id="book"
+      onsubmit="
+        event.preventDefault();
+        alert('Availability search — connect this to your booking engine.');
+      "
+    >
+      <div class="field">
+        <label>Launch transfer</label><input type="date" />
+      </div>
+      <div class="field">
+        <label>Return transfer</label><input type="date" />
+      </div>
+      <div class="field">
+        <label>Travellers</label>
+        <select>
+          <option>1 traveller</option>
+          <option selected>2 travellers</option>
+          <option>2 + 1 child</option>
+          <option>2 + 2 children</option>
+          <option>4 travellers</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Cabin class</label>
+        <select>
+          <option>Any cabin</option>
+          <option>Aurora</option>
+          <option>Earthview</option>
+          <option>Suite</option>
+          <option>Family</option>
+          <option>Accessible</option>
+        </select>
+      </div>
+      <button class="go" type="submit">Check availability</button>
+    </form>
+    <p class="booknote">
+      3-night minimum · 24-hour pre-flight adaptation included · Medical
+      clearance required
+    </p>
+
+    <!-- ================= DECK PLAN ================= -->
+    <section class="sec plan-sec" id="plan">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker">Interactive deck plan</span>
+          <h2>Walk the station, deck by deck</h2>
+          <p>
+            Tap any module to see what's inside — atmosphere, gravity level,
+            capacity and what's included.
+          </p>
+        </div>
+
+        <div class="plan-grid">
+          <div class="reveal">
+            <div class="floor-tabs" id="floorTabs"></div>
+            <div class="plan-stage">
+              <svg
+                class="plan"
+                id="planSvg"
+                viewBox="0 0 800 480"
+                role="img"
+                aria-label="Space station deck plan"
+              ></svg>
+            </div>
+            <div class="legend" id="legend"></div>
+          </div>
+          <aside class="plan-detail reveal" id="planDetail"></aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CABINS ================= -->
+    <section class="sec" id="rooms">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker">Where you sleep</span>
+          <h2>Cabins &amp; suites</h2>
+          <p>
+            Eight cabin classes across Deck 1 — every one with a real window,
+            adjustable sleep gravity and a view of Earth that changes every 46
+            minutes.
+          </p>
+        </div>
+        <div class="filters reveal" id="roomFilters"></div>
+        <div class="room-grid" id="roomGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= DINING ================= -->
+    <section
+      class="sec"
+      id="dining"
+      style="background: #070e1a; border-block: 1px solid var(--line)"
+    >
+      <div class="wrap">
+        <div class="split">
+          <div class="split-media reveal">
+            <div class="viz viz-3" style="background-image: url('img/dining-split.webp.jpg'); background-size: cover; background-position: center;"></div>
+          </div>
+          <div class="reveal">
+            <div class="sec-head" style="margin-bottom: 0">
+              <span class="kicker">Food &amp; drink</span>
+              <h2>Grown three metres away</h2>
+              <p>
+                Hydroponic greens, cultured proteins and a rooftop tasting menu
+                — plus a bar with the best view in the sky.
+              </p>
+            </div>
+            <div class="tabbar" id="dineTabs"></div>
+            <div id="dinePanels"></div>
+            <a href="#" class="btn btn-ink" style="margin-top: 6px"
+              >Reserve a table</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ENTERTAINMENT ================= -->
+    <section class="sec ent-sec" id="entertainment">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker">After dark (or 46 minutes later)</span>
+          <h2>Entertainment in orbit</h2>
+          <p>
+            Earthrise viewings, zero-gravity cinema and a listening room that
+            stays open later than the bar.
+          </p>
+        </div>
+        <div class="ent-grid" id="entGrid"></div>
+      </div>
+    </section>
+
+    <!-- ================= ACTIVITIES ================= -->
+    <section class="sec" id="activities">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker">Your orbit, planned</span>
+          <h2>Activities for guests</h2>
+          <p>
+            Most are included with every stay. EVA spacewalks and workshops need
+            a sign-up at reception the day before.
+          </p>
+        </div>
+        <div class="daybar reveal" id="dayBar"></div>
+        <div class="act-list" id="actList"></div>
+      </div>
+    </section>
+
+    <!-- ================= SAFETY ================= -->
+    <section class="sec safety-sec" id="safety">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="kicker">Peace of mind</span>
+          <h2>Safety, access &amp; care</h2>
+          <p>
+            Triple-redundant life support, storm shelters and a crew drilled
+            weekly — quietly invisible when everything is working.
+          </p>
+        </div>
+        <div class="safe-grid reveal" id="safeGrid"></div>
+        <div class="safe-note reveal">
+          <p>
+            <strong>Need something specific?</strong> Reduced-gravity cabins,
+            mobility support, medication cold storage, dietary requirements or a
+            private suit fitting — tell us before launch and it's ready.
+          </p>
+          <a href="#" class="btn btn-out">Contact flight services</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CTA ================= -->
+    <section class="cta viz viz-4" style="background-image: linear-gradient(180deg, rgba(4,7,14,0.55), rgba(4,7,14,0.82)), url('img/cta-orbit.webp.jpg'); background-size: cover; background-position: center;">
+      <div class="wrap">
+        <span class="eyebrow">Next launch window</span>
+        <h2>Come and see it for yourself</h2>
+        <p>
+          Best rates on direct bookings, flexible rescheduling up to 30 days
+          before launch, and a welcome drink in the cupola.
+        </p>
+        <div class="cta-row">
+          <a href="#book" class="btn btn-gold">Book direct</a>
+          <a
+            href="#plan"
+            class="btn btn-out"
+            style="border-color: rgba(255, 255, 255, 0.3); color: #fff"
+            >Explore the deck plan again</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FOOTER ================= -->
+    <footer>
+      <div class="wrap">
+        <div class="foot-top">
+          <div>
+            <div class="brand">AMARANTE <b>ORBITAL</b></div>
+            <p style="max-width: 30ch; margin: 16px 0 0; font-weight: 300">
+              Low Earth Orbit · 51.6° inclination<br />408 km above mean sea
+              level<br />flight@amarante-orbit.example
+            </p>
+          </div>
+          <div class="foot-cols">
+            <div>
+              <h5>Stay</h5>
+              <a href="#rooms">Cabins</a><a href="#rooms">Suites</a
+              ><a href="#plan">Deck plan</a><a href="#safety">Accessibility</a>
+            </div>
+            <div>
+              <h5>Eat</h5>
+              <a href="#dining">Terra</a><a href="#dining">Halo</a
+              ><a href="#dining">Meridian</a><a href="#dining">In-cabin</a>
+            </div>
+            <div>
+              <h5>Do</h5>
+              <a href="#activities">Activities</a
+              ><a href="#entertainment">What's on</a
+              ><a href="#activities">EVA spacewalk</a
+              ><a href="#plan">Observatory</a>
+            </div>
+          </div>
+        </div>
+        <div class="foot-bot">
+          <span>© 2031 Amarante Orbital. All rights reserved.</span>
+          <span>Privacy · Terms · Flight conditions</span>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      /* =========================================================
+   1. DATA — rethemed for an orbital station
+   ========================================================= */
+      const TYPE = {
+        service: { label: "Arrival & service", color: "#E0B45C" },
+        dining: { label: "Dining", color: "#E08A5A" },
+        wellness: { label: "Wellness", color: "#6FD3A8" },
+        recreation: { label: "Recreation", color: "#8FA6F0" },
+        room: { label: "Guest cabins", color: "#6FD3E8" },
+        event: { label: "Events", color: "#C88FB0" },
+      };
+
+      const FLOORS = [
+        {
+          id: "deck0",
+          label: "Deck 0 · Arrival",
+          spaces: [
+            {
+              id: "dock",
+              name: "Docking Ring",
+              type: "service",
+              x: 20,
+              y: 20,
+              w: 220,
+              h: 160,
+              viz: "viz-5",
+              img: "img/mod-docking-ring.webp.jpg",
+              desc: "Two pressurised berths for crewed transfers and cargo. Docking takes about twelve minutes — you stay strapped in until pressure equalises, then the hatch opens.",
+              meta: [
+                "2 berths",
+                "Pressurised",
+                "12-min docking",
+                "Seatbelts on",
+              ],
+            },
+            {
+              id: "arrival",
+              name: "Arrival Hall & Reception",
+              type: "service",
+              x: 250,
+              y: 20,
+              w: 240,
+              h: 160,
+              viz: "viz-1",
+              img: "img/mod-arrival-hall.webp.jpg",
+              desc: "A wide, softly lit module where you are unclipped, weighed and welcomed. Reception runs around the clock and the orientation wall loops your first-day briefing.",
+              meta: ["24h reception", "Orientation", "0.16 g", "Step-free"],
+            },
+            {
+              id: "suit",
+              name: "Suit Bay & Decon",
+              type: "service",
+              x: 500,
+              y: 20,
+              w: 280,
+              h: 160,
+              viz: "viz-7",
+              img: "img/mod-suit-bay.webp.jpg",
+              desc: "Where pressure suits are fitted, checked and stored. Every guest passes through a five-minute suit fitting before any EVA — no exceptions.",
+              meta: ["Suit fitting", "EVA prep", "Decontamination", "Lockers"],
+            },
+            {
+              id: "stowage",
+              name: "Cargo & Stowage",
+              type: "service",
+              x: 20,
+              y: 250,
+              w: 200,
+              h: 210,
+              viz: "viz-2",
+              img: "img/mod-cargo-stowage.webp.jpg",
+              desc: "Soft-sided luggage only on the transfer, so everything else lives here. Secure lockers, cold storage and a retrieval desk staffed 06:00–23:00.",
+              meta: [
+                "Secure lockers",
+                "Cold storage",
+                "06:00–23:00",
+                "Insured",
+              ],
+            },
+            {
+              id: "medbay",
+              name: "Medical Bay",
+              type: "wellness",
+              x: 230,
+              y: 250,
+              w: 220,
+              h: 210,
+              viz: "viz-6",
+              img: "img/mod-medical-bay.webp.jpg",
+              desc: "A two-bed bay with a flight surgeon on call, ultrasound, oxygen and a telemedicine link to the ground. Open 24 hours, no appointment needed.",
+              meta: ["24h", "Flight surgeon", "Telemedicine", "Oxygen"],
+            },
+            {
+              id: "core",
+              name: "Transit Core",
+              type: "service",
+              x: 460,
+              y: 250,
+              w: 140,
+              h: 210,
+              viz: "viz-8",
+              img: "img/mod-transit-core.webp.jpg",
+              desc: "The central lift shaft and stair well connecting all four decks. Handrails throughout — in 0.16 g, you pull yourself along more than you walk.",
+              meta: ["4 decks", "Handrails", "Step-free", "Emergency ladder"],
+            },
+            {
+              id: "ops",
+              name: "Station Ops",
+              type: "service",
+              x: 610,
+              y: 250,
+              w: 170,
+              h: 210,
+              viz: "viz-5",
+              img: "img/mod-station-ops.webp.jpg",
+              desc: "Flight control for the whole station — life support, power, orbit and comms. Viewing window only; the crew will happily explain what all the screens mean.",
+              meta: ["Restricted", "Viewing window", "24h crew", "Comms"],
+            },
+          ],
+        },
+        {
+          id: "deck1",
+          label: "Deck 1 · Habitation",
+          spaces: [
+            {
+              id: "c1",
+              name: "C1 Aurora Cabin",
+              type: "room",
+              x: 20,
+              y: 20,
+              w: 175,
+              h: 175,
+              viz: "viz-1",
+              img: "img/mod-cabin-aurora.webp.jpg",
+              desc: "The signature cabin. A 1.4-metre Earth-facing window, a memory-foam sleep pod and adjustable gravity from 0.16 to 0.38 g for a proper night's rest.",
+              meta: [
+                "18 m²",
+                "2 guests",
+                "Earth window",
+                "0.16–0.38 g",
+                "€9,800/night",
+              ],
+            },
+            {
+              id: "c2",
+              name: "C2 Aurora Cabin",
+              type: "room",
+              x: 205,
+              y: 20,
+              w: 175,
+              h: 175,
+              viz: "viz-4",
+              img: "img/mod-cabin-aurora-2.webp.png",
+              desc: "Mirror layout of C1 with the morning limb of the orbit. Slightly deeper window recess for photography — a tripod mount is built in.",
+              meta: [
+                "18 m²",
+                "2 guests",
+                "Earth window",
+                "Tripod mount",
+                "€9,800/night",
+              ],
+            },
+            {
+              id: "c3",
+              name: "C3 Comet Twin",
+              type: "room",
+              x: 390,
+              y: 20,
+              w: 175,
+              h: 175,
+              viz: "viz-2",
+              img: "img/mod-cabin-comet-twin.webp.jpg",
+              desc: "Two sleep pods side by side with a shared comms screen. The most popular cabin for friends travelling together.",
+              meta: [
+                "16 m²",
+                "2 guests",
+                "Twin pods",
+                "Shared screen",
+                "€8,400/night",
+              ],
+            },
+            {
+              id: "c4",
+              name: "C4 Nebula Cabin",
+              type: "room",
+              x: 575,
+              y: 20,
+              w: 205,
+              h: 175,
+              viz: "viz-6",
+              img: "img/mod-cabin-nebula.webp.png",
+              desc: "A corner cabin with two windows — Earth on one side, deep space on the other. Blackout shutters for when the 46-minute day gets too much.",
+              meta: [
+                "20 m²",
+                "2 guests",
+                "Corner",
+                "Two windows",
+                "€10,600/night",
+              ],
+            },
+            {
+              id: "c5",
+              name: "C5 Earthview Cabin",
+              type: "room",
+              x: 20,
+              y: 275,
+              w: 175,
+              h: 185,
+              viz: "viz-3",
+              img: "img/mod-cabin-earthview.webp.jpg",
+              desc: "The largest window on the deck — 2.1 metres of curved glass facing the planet. Built for people who came here to look at it.",
+              meta: [
+                "22 m²",
+                "2 guests",
+                "2.1 m window",
+                "Earth-facing",
+                "€14,200/night",
+              ],
+            },
+            {
+              id: "c6",
+              name: "C6 Earthview Cabin",
+              type: "room",
+              x: 205,
+              y: 275,
+              w: 175,
+              h: 185,
+              viz: "viz-7",
+              img: "img/mod-cabin-earthview-2.webp.jpg",
+              desc: "Second Earthview cabin, angled toward the terminator — you get the day/night line crossing the planet twice an orbit.",
+              meta: [
+                "22 m²",
+                "2 guests",
+                "2.1 m window",
+                "Terminator view",
+                "€14,200/night",
+              ],
+            },
+            {
+              id: "c7",
+              name: "C7 Accessible Cabin",
+              type: "room",
+              x: 390,
+              y: 275,
+              w: 175,
+              h: 185,
+              viz: "viz-8",
+              img: "img/mod-cabin-accessible.webp.jpg",
+              desc: "Step-free from the transit core, 90 cm doorways, grab rails throughout, a transfer hoist and lowered controls. Visual and vibration alarms.",
+              meta: [
+                "20 m²",
+                "2 guests",
+                "Step-free",
+                "Transfer hoist",
+                "Visual alarm",
+                "€9,800/night",
+              ],
+            },
+            {
+              id: "c8",
+              name: "C8 Quad Cabin",
+              type: "room",
+              x: 575,
+              y: 275,
+              w: 205,
+              h: 185,
+              viz: "viz-5",
+              img: "img/mod-cabin-quad.webp.jpg",
+              desc: "Four sleep pods on two levels with a shared window lounge. Sleeps four comfortably, five with a fold-down pod.",
+              meta: [
+                "30 m²",
+                "2 adults + 2 children",
+                "Bunk pods",
+                "Window lounge",
+                "€16,800/night",
+              ],
+            },
+          ],
+        },
+        {
+          id: "deck2",
+          label: "Deck 2 · Life",
+          spaces: [
+            {
+              id: "garden",
+              name: "Hydroponic Garden",
+              type: "dining",
+              x: 20,
+              y: 20,
+              w: 260,
+              h: 175,
+              viz: "viz-6",
+              img: "img/mod-hydroponic-garden.webp.jpg",
+              desc: "Four hundred square metres of lettuce, herbs, tomatoes and chillies under pink LED. Everything on the Terra menu starts here — the tour runs twice a day.",
+              meta: [
+                "400 m²",
+                "2 tours daily",
+                "Pink LED",
+                "Harvest on demand",
+              ],
+            },
+            {
+              id: "terra",
+              name: "Terra Dining Room",
+              type: "dining",
+              x: 290,
+              y: 20,
+              w: 300,
+              h: 175,
+              viz: "viz-3",
+              img: "img/mod-terra-dining.webp.jpg",
+              desc: "The all-day room. Breakfast from 06:00 station time, a market lunch and a four-course dinner built entirely from the garden next door.",
+              meta: [
+                "06:00–23:00",
+                "Garden menu",
+                "Vegan by default",
+                "40 seats",
+              ],
+            },
+            {
+              id: "gym",
+              name: "Centrifuge Gym",
+              type: "wellness",
+              x: 600,
+              y: 20,
+              w: 180,
+              h: 175,
+              viz: "viz-2",
+              img: "img/mod-centrifuge-gym.webp.jpg",
+              desc: "A short-arm centrifuge for up to 1 g resistance training, plus free weights on magnetic plates and two rowing machines. Open 24 hours.",
+              meta: [
+                "24h",
+                "Up to 1 g",
+                "Magnetic weights",
+                "Resistance suits",
+              ],
+            },
+            {
+              id: "spa",
+              name: "Float Spa",
+              type: "wellness",
+              x: 20,
+              y: 275,
+              w: 260,
+              h: 185,
+              viz: "viz-1",
+              img: "img/mod-float-spa.webp.jpg",
+              desc: "A warm, still water module for genuine weightlessness without leaving the station. Four treatment beds, silent, and the lights go down to almost nothing.",
+              meta: ["4 beds", "Silent", "Warm water", "Book a day ahead"],
+            },
+            {
+              id: "steam",
+              name: "Salt & Steam",
+              type: "wellness",
+              x: 290,
+              y: 275,
+              w: 180,
+              h: 185,
+              viz: "viz-4",
+              img: "img/mod-salt-steam.webp.jpg",
+              desc: "A compact sauna and steam module with a cold mist shower. The decompression ritual after an EVA — 12 minutes in, 30 seconds cold, repeat.",
+              meta: ["Sauna", "Steam", "Cold mist", "Post-EVA ritual"],
+            },
+            {
+              id: "kids",
+              name: "Orbit Club",
+              type: "recreation",
+              x: 480,
+              y: 275,
+              w: 300,
+              h: 185,
+              viz: "viz-8",
+              img: "img/mod-orbit-club.webp.jpg",
+              desc: "Supervised play for ages 6–12 in a padded module. Zero-g ball games, an art wall and a nap nook. Open mornings and late afternoons.",
+              meta: [
+                "Ages 6–12",
+                "Supervised",
+                "09:00–12:00 & 16:00–19:00",
+                "Free",
+              ],
+            },
+          ],
+        },
+        {
+          id: "deck3",
+          label: "Deck 3 · Observation",
+          spaces: [
+            {
+              id: "dome",
+              name: "Observation Dome",
+              type: "recreation",
+              x: 20,
+              y: 20,
+              w: 300,
+              h: 200,
+              viz: "viz-1",
+              img: "img/mod-observation-dome.webp.jpg",
+              desc: "A glass cupola on the station's leading edge. Six people at a time, no shoes, no phones — just 180 degrees of planet and the black beyond it.",
+              meta: [
+                "6 at a time",
+                "180° view",
+                "Silent",
+                "Booked in 20-min slots",
+              ],
+            },
+            {
+              id: "earthrise",
+              name: "Earthrise Lounge",
+              type: "recreation",
+              x: 330,
+              y: 20,
+              w: 220,
+              h: 200,
+              viz: "viz-3",
+              img: "img/mod-earthrise-lounge.webp.jpg",
+              desc: "Deep chairs, low light and a wall of windows facing the horizon. Sunrise happens every 92 minutes and someone will always point it out.",
+              meta: ["Open 24h", "Horizon view", "Deep chairs", "Silent zone"],
+            },
+            {
+              id: "signal",
+              name: "Signal Room",
+              type: "recreation",
+              x: 560,
+              y: 20,
+              w: 220,
+              h: 200,
+              viz: "viz-4",
+              img: "img/mod-signal-room.webp.jpg",
+              desc: "A listening room with 800 records, a turntable you are genuinely allowed to use, and live sets on Thursdays. The only place on board with a subwoofer.",
+              meta: [
+                "800 records",
+                "Live sets Thu",
+                "Turntable",
+                "Late licence",
+              ],
+            },
+            {
+              id: "halo",
+              name: "Halo Fine Dining",
+              type: "dining",
+              x: 20,
+              y: 280,
+              w: 240,
+              h: 180,
+              viz: "viz-7",
+              img: "img/mod-halo-fine-dining.webp.jpg",
+              desc: "A seven-course tasting menu at a single sitting, twelve seats, all facing the window. Reservation only, adults only, and it books out months ahead.",
+              meta: [
+                "19:00–23:00",
+                "7 courses",
+                "12 seats",
+                "Reservation only",
+              ],
+            },
+            {
+              id: "cinema",
+              name: "Zero-G Cinema",
+              type: "recreation",
+              x: 270,
+              y: 280,
+              w: 260,
+              h: 180,
+              viz: "viz-5",
+              img: "img/mod-zero-g-cinema.webp.jpg",
+              desc: "Films projected onto a curved screen with guests tethered to floor anchors. Blankets, popcorn and a bar. Programme posted weekly in the arrival hall.",
+              meta: ["20 seats", "Tethered", "Nightly 21:30", "Bar service"],
+            },
+            {
+              id: "event",
+              name: "Event Module",
+              type: "event",
+              x: 540,
+              y: 280,
+              w: 240,
+              h: 180,
+              viz: "viz-6",
+              img: "img/mod-event-module.webp.jpg",
+              desc: "A glass-walled space for weddings, private dinners and launches. Seats 60, standing 90, with a private bar and its own cupola.",
+              meta: ["Up to 90", "Private bar", "Weddings", "Own cupola"],
+            },
+          ],
+        },
+      ];
+
+      const ROOMS = [
+        {
+          name: "Aurora Cabin",
+          cat: "cabins",
+          viz: "viz-1",
+          img: "img/mod-cabin-aurora.webp.jpg",
+          size: "18 m²",
+          sleeps: "2 guests",
+          bed: "Sleep pod",
+          price: "€9,800",
+          tags: [
+            "Earth window",
+            "Adjustable gravity",
+            "Private comms",
+            "Blackout shutters",
+          ],
+        },
+        {
+          name: "Comet Twin",
+          cat: "cabins",
+          viz: "viz-2",
+          img: "img/mod-cabin-comet-twin.webp.jpg",
+          size: "16 m²",
+          sleeps: "2 guests",
+          bed: "Twin pods",
+          price: "€8,400",
+          tags: ["Twin pods", "Shared screen", "Handrails", "Reading lights"],
+        },
+        {
+          name: "Nebula Cabin",
+          cat: "cabins",
+          viz: "viz-6",
+          img: "img/mod-cabin-nebula.webp.png",
+          size: "20 m²",
+          sleeps: "2 guests",
+          bed: "Sleep pod",
+          price: "€10,600",
+          tags: ["Corner", "Two windows", "Blackout shutters", "Tripod mount"],
+        },
+        {
+          name: "Earthview Cabin",
+          cat: "cabins",
+          viz: "viz-3",
+          img: "img/mod-cabin-earthview.webp.jpg",
+          size: "22 m²",
+          sleeps: "2 guests",
+          bed: "Sleep pod",
+          price: "€14,200",
+          tags: [
+            "2.1 m window",
+            "Earth-facing",
+            "Photography mount",
+            "Soundproofing",
+          ],
+        },
+        {
+          name: "Orbit Suite",
+          cat: "suites",
+          viz: "viz-4",
+          img: "img/mod-cabin-aurora-2.webp.png",
+          size: "34 m²",
+          sleeps: "3 guests",
+          bed: "Pod + sofa pod",
+          price: "€22,500",
+          tags: [
+            "Separate lounge",
+            "Cupola access",
+            "Butler service",
+            "Two windows",
+          ],
+        },
+        {
+          name: "Command Suite",
+          cat: "suites",
+          viz: "viz-7",
+          img: "img/mod-cabin-earthview-2.webp.jpg",
+          size: "48 m²",
+          sleeps: "2 guests",
+          bed: "Super pod",
+          price: "€38,000",
+          tags: [
+            "Private cupola",
+            "Panoramic view",
+            "Butler service",
+            "Zero-g bath",
+          ],
+        },
+        {
+          name: "Quad Cabin",
+          cat: "family",
+          viz: "viz-5",
+          img: "img/mod-cabin-quad.webp.jpg",
+          size: "30 m²",
+          sleeps: "2 adults + 2 children",
+          bed: "Bunk pods",
+          price: "€16,800",
+          tags: [
+            "Window lounge",
+            "Bunk pods",
+            "Kids welcome pack",
+            "Connecting",
+          ],
+        },
+        {
+          name: "Accessible Cabin",
+          cat: "accessible",
+          viz: "viz-8",
+          img: "img/mod-cabin-accessible.webp.jpg",
+          size: "20 m²",
+          sleeps: "2 guests",
+          bed: "Sleep pod",
+          price: "€9,800",
+          tags: [
+            "Step-free",
+            "Transfer hoist",
+            "Grab rails",
+            "Visual alarm",
+            "Lowered controls",
+          ],
+        },
+      ];
+
+      const DINING = [
+        {
+          id: "terra",
+          name: "Terra",
+          meta: "All-day dining · 06:00–23:00 · No reservation",
+          body: "Four courses built from the hydroponic garden one module over — leaves cut an hour before service, tomatoes grown under pink LED, chillies from the third rack. Vegan by default, cultured protein on request.",
+          tags: [
+            "Garden menu",
+            "Vegan default",
+            "40 seats",
+            "Allergen labelling",
+            "Highchairs",
+          ],
+        },
+        {
+          id: "halo",
+          name: "Halo",
+          meta: "Observation fine dining · 19:00–23:00 · Reservation only",
+          body: "Twelve seats, one sitting, all facing the horizon. A seven-course tasting menu with an optional wine flight — and the Earthrise, unprompted, somewhere around course four.",
+          tags: [
+            "7 courses",
+            "12 seats",
+            "Wine flight",
+            "Adults only",
+            "Books out early",
+          ],
+        },
+        {
+          id: "meridian",
+          name: "Meridian Bar",
+          meta: "Cupola bar · 15:00–02:00 · No reservation",
+          body: "The highest bar on the station, wrapped around the forward cupola. House cocktails built on freeze-dried citrus, a short snack menu, and live sets on Thursday nights.",
+          meta: "",
+          tags: [
+            "Cupola views",
+            "Cocktails",
+            "Snack menu",
+            "Live sets Thu",
+            "Late licence",
+          ],
+        },
+        {
+          id: "cafe",
+          name: "Zero-G Café",
+          meta: "24 hours · Grab-and-go",
+          body: "Coffee, pastries and cold plates around the clock for people whose body clocks have given up. Everything is tethered, magnetised or served in a tube.",
+          tags: ["24 hours", "Grab-and-go", "Tethered trays", "Coffee"],
+        },
+        {
+          id: "cabin",
+          name: "In-cabin dining",
+          meta: "24 hours · Tray service",
+          body: "The full Terra menu until 23:00, then a night menu of soups, sandwiches and desserts until breakfast. Kids' portions and dietary substitutions available on request.",
+          tags: ["24 hours", "Night menu", "Kids portions", "Allergen-aware"],
+        },
+      ];
+
+      const ENTERTAINMENT = [
+        {
+          when: "Every 92 minutes",
+          name: "Earthrise viewing",
+          viz: "viz-1",
+          img: "img/ent-earthrise.webp.jpg",
+          text: "The horizon lights up, the planet turns beneath you, and the dome goes quiet. The crew will tell you exactly when.",
+        },
+        {
+          when: "Nightly · 21:30",
+          name: "Zero-G Cinema",
+          viz: "viz-5",
+          img: "img/ent-cinema.webp.jpg",
+          text: "Films on a curved screen with guests tethered to floor anchors. Blankets, popcorn and a bar.",
+        },
+        {
+          when: "Thursdays · 21:00",
+          name: "Live sets in the Signal Room",
+          viz: "viz-4",
+          img: "img/ent-live-sets.webp.jpg",
+          text: "A rotating trio of musicians playing in genuine microgravity. Two sets, no cover charge for hotel guests.",
+        },
+        {
+          when: "Fridays · 22:00",
+          name: "Astronomy session",
+          viz: "viz-8",
+          img: "img/ent-astronomy.webp.jpg",
+          text: "An astronomer talks you through the sky from the dark side of the orbit — no light pollution, no atmosphere, no mercy.",
+        },
+        {
+          when: "Saturdays · 18:00",
+          name: "Low-gravity tournaments",
+          viz: "viz-6",
+          img: "img/ent-tournament.webp.jpg",
+          text: "Table tennis, darts and something the crew invented. Teams of two, sign up at reception by noon.",
+        },
+        {
+          when: "Sundays · 17:00",
+          name: "Kids' orbit disco",
+          viz: "viz-2",
+          img: "img/ent-kids-disco.webp.jpg",
+          text: "One hour of loud music and fruit juice in the Orbit Club. Parents may bounce.",
+        },
+      ];
+
+      const ACTIVITIES = [
+        {
+          day: "Daily",
+          time: "07:00",
+          name: "Sunrise yoga in the observation dome",
+          desc: "Forty-five minutes of gentle movement in microgravity. Mats and tethers provided.",
+          tag: "Included",
+        },
+        {
+          day: "Daily",
+          time: "10:00",
+          name: "Hydroponic garden tour",
+          desc: "Meet the agronomist, taste what is growing, and see how a station feeds forty-six people.",
+          tag: "Included",
+        },
+        {
+          day: "Daily",
+          time: "09:00–17:00",
+          name: "EVA spacewalk",
+          desc: "Ninety minutes outside the hull with a flight engineer. Suit fitting required the day before.",
+          tag: "€2,400",
+        },
+        {
+          day: "Daily",
+          time: "12:00",
+          name: "Earth photography session",
+          desc: "A photographer helps you shoot the planet through the dome window. Bring your own camera.",
+          tag: "Included",
+        },
+        {
+          day: "Mon / Wed / Fri",
+          time: "15:00",
+          name: "Space food workshop",
+          desc: "Cook three dishes with the chef using only what the garden and the galley produce.",
+          tag: "€95",
+        },
+        {
+          day: "Tue & Thu",
+          time: "18:30",
+          name: "Astronomy walkthrough",
+          desc: "Ninety minutes with the station astronomer, ending with Earthrise from the cupola.",
+          tag: "Included",
+        },
+        {
+          day: "Daily",
+          time: "09:00–21:00",
+          name: "Float spa rituals",
+          desc: "Water immersion, sauna and massage. Book a day ahead at reception.",
+          tag: "From €140",
+        },
+        {
+          day: "Daily",
+          time: "09:00–19:00",
+          name: "Orbit Club",
+          desc: "Supervised play for ages 6–12, mornings and late afternoons.",
+          tag: "Free",
+        },
+        {
+          day: "Sat & Sun",
+          time: "11:00",
+          name: "Station treasure hunt",
+          desc: "A sixty-minute trail through all four decks with a prize at the end.",
+          tag: "Included",
+        },
+      ];
+
+      const SAFETY = [
+        {
+          n: "01",
+          t: "Triple-redundant life support",
+          d: "Three independent oxygen, nitrogen and CO₂-scrubbing loops. Any two can carry the full station load while the third is serviced.",
+        },
+        {
+          n: "02",
+          t: "Pressure doors & airlocks",
+          d: "Every deck is sealed by pressure doors that close automatically on a drop. You are never more than one module from a breathable safe zone.",
+        },
+        {
+          n: "03",
+          t: "Radiation storm shelter",
+          d: "A water-jacketed core shelter for all forty-six guests and crew, with 72 hours of independent air, power and comms. Drilled weekly.",
+        },
+        {
+          n: "04",
+          t: "Micrometeorite shielding",
+          d: "Whipple shielding across the entire hull, with a debris-tracking link that manoeuvres the station if anything gets close.",
+        },
+        {
+          n: "05",
+          t: "Escape vehicles on standby",
+          d: "Two crewed return vehicles remain docked and fuelled at all times, with a rehearsed 8-minute boarding procedure for every guest.",
+        },
+        {
+          n: "06",
+          t: "Fire suppression in microgravity",
+          d: "No sprinklers in orbit — instead inert-gas flooding, isolation doors and a trained response team on every deck.",
+        },
+        {
+          n: "07",
+          t: "Medical bay & flight surgeon",
+          d: "A two-bed bay, ultrasound, oxygen and a 24-hour telemedicine link to specialists on the ground. Four first-aid trained crew on shift at all times.",
+        },
+        {
+          n: "08",
+          t: "Water & air recycling",
+          d: "Over 93% of water is recovered and re-mineralised. Air quality is monitored continuously in every module and logged for inspection.",
+        },
+        {
+          n: "09",
+          t: "Comms redundancy",
+          d: "Three independent links to the ground — laser, radio and a low-bandwidth backup. Family contact is available from every cabin.",
+        },
+        {
+          n: "10",
+          t: "Pre-flight screening",
+          d: "Every guest completes a medical questionnaire and a 24-hour adaptation programme before launch. We will tell you honestly if the trip is not right for you.",
+        },
+        {
+          n: "11",
+          t: "Step-free & mobility support",
+          d: "Step-free routes from the docking ring to every deck, accessible cabins with transfer hoists, and crew assistance on request at any time.",
+        },
+        {
+          n: "12",
+          t: "Secure stowage",
+          d: "Every guest is assigned a locked, logged stowage locker in the cargo module. Medication requiring cold storage lives in the medical bay.",
+        },
+      ];
+
+      /* =========================================================
+   2. HELPERS
+   ========================================================= */
+      const el = (tag, cls) => {
+        const n = document.createElement(tag);
+        if (cls) n.className = cls;
+        return n;
+      };
+
+      /* =========================================================
+   3. REVEAL SYSTEM
+   ========================================================= */
+      function checkReveals() {
+        const vh = window.innerHeight;
+        document.querySelectorAll(".reveal:not(.in)").forEach((n) => {
+          const r = n.getBoundingClientRect();
+          if (r.top < vh - 20 && r.bottom > 0) n.classList.add("in");
+        });
+      }
+      let _revealTicking = false;
+      window.addEventListener(
+        "scroll",
+        () => {
+          if (!_revealTicking) {
+            requestAnimationFrame(() => {
+              checkReveals();
+              _revealTicking = false;
+            });
+            _revealTicking = true;
+          }
+        },
+        { passive: true },
+      );
+      window.addEventListener("resize", checkReveals);
+      window.addEventListener("load", () => {
+        checkReveals();
+        setTimeout(checkReveals, 300);
+        setTimeout(checkReveals, 1000);
+      });
+      requestAnimationFrame(() => requestAnimationFrame(checkReveals));
+
+      /* =========================================================
+   4. DECK PLAN
+   ========================================================= */
+      const svg = document.getElementById("planSvg");
+      const tabsEl = document.getElementById("floorTabs");
+      const detailEl = document.getElementById("planDetail");
+      const legendEl = document.getElementById("legend");
+      let currentFloor = 0;
+
+      Object.values(TYPE).forEach((t) => {
+        const s = document.createElement("span");
+        s.innerHTML = `<i style="background:${t.color}"></i>${t.label}`;
+        legendEl.appendChild(s);
+      });
+
+      FLOORS.forEach((f, i) => {
+        const b = el("button", "ftab" + (i === 0 ? " active" : ""));
+        b.textContent = f.label;
+        b.onclick = () => {
+          currentFloor = i;
+          document
+            .querySelectorAll(".ftab")
+            .forEach((x) => x.classList.remove("active"));
+          b.classList.add("active");
+          drawFloor();
+        };
+        tabsEl.appendChild(b);
+      });
+
+      function wrapLabel(name, w) {
+        const max = Math.max(7, Math.floor((w - 18) / 7.4));
+        const words = name.split(" ");
+        const lines = [];
+        let cur = "";
+        words.forEach((wd) => {
+          if ((cur + " " + wd).trim().length <= max)
+            cur = (cur + " " + wd).trim();
+          else {
+            if (cur) lines.push(cur);
+            cur = wd;
+          }
+        });
+        if (cur) lines.push(cur);
+        return lines;
+      }
+
+      function drawFloor() {
+        const floor = FLOORS[currentFloor];
+        const NS = "http://www.w3.org/2000/svg";
+
+        /* corridor spine per deck */
+        const corridors = {
+          0: '<rect class="space-base" x="20" y="195" width="760" height="40" rx="8"/>',
+          1: '<rect class="space-base" x="20" y="210" width="760" height="50" rx="8"/>',
+          2: '<rect class="space-base" x="20" y="210" width="760" height="50" rx="8"/>',
+          3: '<rect class="space-base" x="20" y="235" width="760" height="32" rx="8"/>',
+        };
+
+        svg.innerHTML = `
+    <defs>
+      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+        <path d="M40 0H0V40" fill="none" stroke="rgba(111,211,232,.055)" stroke-width="1"/>
+      </pattern>
+    </defs>
+    <rect x="0" y="0" width="800" height="480" fill="url(#grid)"/>
+    <rect x="10" y="10" width="780" height="460" rx="18" fill="none"
+          stroke="rgba(111,211,232,.12)" stroke-width="1.5"/>
+    ${corridors[currentFloor] || ""}
+  `;
+
+        floor.spaces.forEach((s) => {
+          const c = TYPE[s.type].color;
+          const lines = wrapLabel(s.name, s.w);
+          const lh = 15;
+          const startY = s.y + s.h / 2 - ((lines.length - 1) * lh) / 2 + 4;
+
+          const g = document.createElementNS(NS, "g");
+          g.setAttribute("class", "space");
+          g.setAttribute("data-id", s.id);
+          g.setAttribute("tabindex", "0");
+          g.setAttribute("role", "button");
+          g.setAttribute("aria-label", s.name);
+          g.style.setProperty("--c", c);
+
+          const rect = document.createElementNS(NS, "rect");
+          rect.setAttribute("x", s.x);
+          rect.setAttribute("y", s.y);
+          rect.setAttribute("width", s.w);
+          rect.setAttribute("height", s.h);
+          rect.setAttribute("rx", 12);
+          g.appendChild(rect);
+
+          const text = document.createElementNS(NS, "text");
+          text.setAttribute("class", "space-label");
+          text.setAttribute("x", s.x + s.w / 2);
+          text.setAttribute("y", startY);
+          lines.forEach((ln, i) => {
+            const tspan = document.createElementNS(NS, "tspan");
+            tspan.setAttribute("x", s.x + s.w / 2);
+            if (i) tspan.setAttribute("dy", lh);
+            tspan.textContent = ln;
+            text.appendChild(tspan);
+          });
+          g.appendChild(text);
+
+          g.addEventListener("click", () => selectSpace(s.id));
+          g.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              selectSpace(s.id);
+            }
+          });
+
+          svg.appendChild(g);
+        });
+
+        selectSpace(floor.spaces[0].id);
+      }
+
+      function selectSpace(id) {
+        const floor = FLOORS[currentFloor];
+        const s = floor.spaces.find((x) => x.id === id);
+        if (!s) return;
+
+        svg
+          .querySelectorAll(".space")
+          .forEach((g) => g.classList.toggle("is-active", g.dataset.id === id));
+
+        const c = TYPE[s.type].color;
+        const imgStyle = s.img
+          ? `style="background-image:url('${s.img}');background-size:cover;background-position:center;"`
+          : "";
+        const imgClass = s.img ? "has-photo" : `viz ${s.viz}`;
+        detailEl.innerHTML = `
+    <div class="pd-img ${imgClass}" ${imgStyle}>
+      <span class="pd-tag" style="--c:${c}">${TYPE[s.type].label}</span>
+    </div>
+    <div class="pd-body">
+      <h3>${s.name}</h3>
+      <p>${s.desc}</p>
+      <ul class="chips">${s.meta.map((m) => `<li>${m}</li>`).join("")}</ul>
+      <a class="btn btn-gold" href="#book">Plan this into my stay →</a>
+    </div>`;
+      }
+
+      drawFloor();
+
+      /* =========================================================
+   5. CABINS
+   ========================================================= */
+      const CATS = [
+        { id: "all", label: "All cabins" },
+        { id: "cabins", label: "Cabins" },
+        { id: "suites", label: "Suites" },
+        { id: "family", label: "Family" },
+        { id: "accessible", label: "Accessible" },
+      ];
+      const filterBar = document.getElementById("roomFilters");
+      const roomGrid = document.getElementById("roomGrid");
+      let activeCat = "all";
+
+      CATS.forEach((c, i) => {
+        const b = el("button", "chip" + (i === 0 ? " active" : ""));
+        b.textContent = c.label;
+        b.onclick = () => {
+          activeCat = c.id;
+          filterBar
+            .querySelectorAll(".chip")
+            .forEach((x) => x.classList.remove("active"));
+          b.classList.add("active");
+          renderRooms();
+        };
+        filterBar.appendChild(b);
+      });
+
+      function renderRooms() {
+        roomGrid.innerHTML = "";
+        ROOMS.filter((r) => activeCat === "all" || r.cat === activeCat).forEach(
+          (r) => {
+            const card = el("article", "rcard reveal");
+            const bg = r.img
+              ? `style="background-image:url('${r.img}');background-size:cover;background-position:center;"`
+              : "";
+            card.innerHTML = `
+      <div class="rcard-img">
+        <div class="viz ${r.viz}" ${bg}></div>
+        <span class="rcard-badge">${r.bed}</span>
+      </div>
+      <div class="rcard-body">
+        <h3>${r.name}</h3>
+        <div class="rmeta">
+          <span>${r.size}</span><span>${r.sleeps}</span>
+        </div>
+        <ul class="rfeat">${r.tags.map((t) => `<li>${t}</li>`).join("")}</ul>
+        <div class="rfoot">
+          <div class="price">${r.price}<small>per night</small></div>
+          <a href="#book" class="rlink">View &amp; book</a>
+        </div>
+      </div>`;
+            roomGrid.appendChild(card);
+          },
+        );
+        requestAnimationFrame(checkReveals);
+      }
+      renderRooms();
+
+      /* =========================================================
+   6. DINING TABS
+   ========================================================= */
+      const dineTabs = document.getElementById("dineTabs");
+      const dinePanels = document.getElementById("dinePanels");
+
+      DINING.forEach((d, i) => {
+        const btn = el("button", "tbtn" + (i === 0 ? " active" : ""));
+        btn.textContent = d.name;
+        btn.onclick = () => {
+          dineTabs
+            .querySelectorAll(".tbtn")
+            .forEach((x) => x.classList.remove("active"));
+          dinePanels
+            .querySelectorAll(".tpanel")
+            .forEach((x) => x.classList.remove("show"));
+          btn.classList.add("active");
+          document.getElementById("panel-" + d.id).classList.add("show");
+        };
+        dineTabs.appendChild(btn);
+
+        const p = el("div", "tpanel" + (i === 0 ? " show" : ""));
+        p.id = "panel-" + d.id;
+        p.innerHTML = `
+    <div class="meta">${d.meta}</div>
+    <h4>${d.name}</h4>
+    <p>${d.body}</p>
+    <ul class="rfeat">${d.tags.map((t) => `<li>${t}</li>`).join("")}</ul>`;
+        dinePanels.appendChild(p);
+      });
+
+      /* =========================================================
+   7. ENTERTAINMENT
+   ========================================================= */
+      const entGrid = document.getElementById("entGrid");
+      ENTERTAINMENT.forEach((e) => {
+        const card = el("article", `ecard viz ${e.viz} reveal`);
+        if (e.img) {
+          card.style.backgroundImage = `url('${e.img}')`;
+          card.style.backgroundSize = "cover";
+          card.style.backgroundPosition = "center";
+        }
+        card.innerHTML = `
+    <div class="ecard-body">
+      <div class="when">${e.when}</div>
+      <h3>${e.name}</h3>
+      <p>${e.text}</p>
+    </div>`;
+        entGrid.appendChild(card);
+      });
+
+      /* =========================================================
+   8. ACTIVITIES
+   ========================================================= */
+      const dayBar = document.getElementById("dayBar");
+      const actList = document.getElementById("actList");
+      const DAYS = [
+        "All week",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat",
+        "Sun",
+      ];
+      let activeDay = "All week";
+
+      DAYS.forEach((d, i) => {
+        const b = el("button", "chip" + (i === 0 ? " active" : ""));
+        b.textContent = d;
+        b.onclick = () => {
+          activeDay = d;
+          dayBar
+            .querySelectorAll(".chip")
+            .forEach((x) => x.classList.remove("active"));
+          b.classList.add("active");
+          renderActivities();
+        };
+        dayBar.appendChild(b);
+      });
+
+      function renderActivities() {
+        actList.innerHTML = "";
+        ACTIVITIES.filter(
+          (a) =>
+            activeDay === "All week" ||
+            a.day === "Daily" ||
+            a.day.includes(activeDay),
+        ).forEach((a) => {
+          const row = el("div", "act reveal");
+          row.innerHTML = `
+        <div class="time">${a.time}</div>
+        <div>
+          <h4>${a.name}</h4>
+          <p>${a.desc}</p>
+        </div>
+        <span class="tag">${a.tag}</span>`;
+          actList.appendChild(row);
+        });
+        requestAnimationFrame(checkReveals);
+      }
+      renderActivities();
+
+      /* =========================================================
+   9. SAFETY
+   ========================================================= */
+      const safeGrid = document.getElementById("safeGrid");
+      SAFETY.forEach((s) => {
+        const item = el("div", "safe-item");
+        item.innerHTML = `
+    <span class="num">${s.n}</span>
+    <h4>${s.t}</h4>
+    <p>${s.d}</p>`;
+        safeGrid.appendChild(item);
+      });
+
+      /* =========================================================
+   10. NAV
+   ========================================================= */
+      const nav = document.getElementById("nav");
+      window.addEventListener(
+        "scroll",
+        () => {
+          nav.classList.toggle("solid", window.scrollY > 80);
+        },
+        { passive: true },
+      );
+
+      setTimeout(checkReveals, 600);
+    </script>
+  </body>
+</html>
